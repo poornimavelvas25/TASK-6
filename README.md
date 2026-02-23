@@ -13,6 +13,11 @@ Documenting everything in GitHub.
 
 ## TOOLS USED
 
+-Kaspersky
+-NordPass
+-Security.org
+-Notepad
+
 ## STEPS FOLLOWED
 Create Test Passwords-8 Passwords with increasing complexity.
 
