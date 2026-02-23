@@ -14,8 +14,11 @@ Documenting everything in GitHub.
 ## TOOLS USED
 
 -Kaspersky
+
 -NordPass
+
 -Security.org
+
 -Notepad
 
 ## STEPS FOLLOWED
