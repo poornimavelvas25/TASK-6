@@ -59,11 +59,16 @@ def check_strength(password):
 
 # ---- ENTROPY CALCULATION ----
 def calculate_entropy(length, charset_size):
+    if charset_size <= 0:
+        return 0
     return length * math.log2(charset_size)
 
 
 # ---- CRACK TIME ESTIMATION ----
 def estimate_crack_time(entropy):
+    if entropy <= 0:
+        return "Instantly"
+    
     guesses_per_second = 1_000_000_000  # 1 billion guesses/sec
     total_combinations = 2 ** entropy
     seconds = total_combinations / guesses_per_second
@@ -83,7 +88,12 @@ def estimate_crack_time(entropy):
 # ---- MAIN PROGRAM ----
 print("=== Advanced Secure Password Generator ===")
 
-length = int(input("Enter password length (min 8): "))
+try:
+    length = int(input("Enter password length (min 8): "))
+except ValueError:
+    print("Error: Please enter a valid number.")
+    exit()
+
 use_upper = input("Include uppercase? (y/n): ").lower() == 'y'
 use_numbers = input("Include numbers? (y/n): ").lower() == 'y'
 use_symbols = input("Include symbols? (y/n): ").lower() == 'y'
@@ -101,9 +111,6 @@ else:
     print("Strength Score (0-5):", score)
     print("Estimated Crack Time:", crack_time)
     print("Entropy:", round(entropy, 2), "bits")
-
-    if password in COMMON_PASSWORDS:
-        print("⚠ WARNING: This is a commonly used password!")
 
     if feedback:
         print("\nFeedback:")
