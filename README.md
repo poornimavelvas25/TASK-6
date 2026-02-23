@@ -15,15 +15,21 @@ Documenting everything in GitHub.
 
 ## STEPS FOLLOWED
 Create Test Passwords-8 Passwords with increasing complexity.
+
 Test Password Strength using Kaspersky,NordPass and Security.org
+
 Record Scores,Estimated Crack Time and Feedback given by tool.
 
 ## OBSERVATIONS
 
 - Short passwords are cracked quickly.
+ 
 - Adding uppercase letters increases complexity.
+
 - Symbols significantly increase crack time.
+
 - Length is more important than complexity alone.
+
 - Random passwords are strongest.
 
 ##  Common Password Attacks
