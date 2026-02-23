@@ -1,1 +1,112 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Password Calculator</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            background-color: #f4f4f4;\n            color: #333;\n            padding: 20px;\n        }\n        .container {\n            max-width: 400px;\n            margin: auto;\n            background: white;\n            padding: 20px;\n            border-radius: 8px;\n            box-shadow: 0 0 10px rgba(0,0,0,0.1);\n        }\n        h1 {\n            text-align: center;\n        }\n        label {\n            display: block;\n            margin-bottom: 8px;\n        }\n        input {\n            width: 100%;\n            padding: 8px;\n            margin-bottom: 10px;\n            border: 1px solid #ddd;\n            border-radius: 4px;\n        }\n        button {\n            width: 100%;\n            padding: 10px;\n            background-color: #5cb85c;\n            color: white;\n            border: none;\n            border-radius: 4px;\n            cursor: pointer;\n        }\n        button:hover {\n            background-color: #4cae4c;\n        }\n    </style>\n</head>\n<body>\n    <div class="container">\n        <h1>Password Calculator</h1>\n        <label for="password">Enter a password:</label>\n        <input type="text" id="password" placeholder="Your password here">\n        <button onclick="calculatePasswordStrength()">Calculate Strength</button>\n        <div id="result"></div>\n    </div>\n    <script>\n        function calculatePasswordStrength() {\n            const password = document.getElementById('password').value;\n            let strength = 'Weak';\n            const lengthCriteria = password.length >= 8;\n            const numberCriteria = /[0-9]/.test(password);\n            const specialCharacterCriteria = /[!@#$%^&*]/.test(password);\n            const uppercaseCriteria = /[A-Z]/.test(password);\n            \n            if (lengthCriteria && (numberCriteria || specialCharacterCriteria) && uppercaseCriteria) {\n                strength = 'Strong';\n            } else if (lengthCriteria && (numberCriteria || specialCharacterCriteria)) {\n                strength = 'Medium';\n            }\n            document.getElementById('result').innerText = 'Password Strength: ' + strength;\n        }\n    </script>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .weak {
+            color: #d9534f;
+            background-color: #f2dede;
+        }
+        .medium {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+        }
+        .strong {
+            color: #3c763d;
+            background-color: #dff0d8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Password Calculator</h1>
+        <label for="password">Enter a password:</label>
+        <input type="text" id="password" placeholder="Your password here">
+        <button onclick="calculatePasswordStrength()">Calculate Strength</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        function calculatePasswordStrength() {
+            const password = document.getElementById('password').value;
+            let strength = 'Weak';
+            let score = 0;
+            const resultDiv = document.getElementById('result');
+            
+            // Check criteria
+            const lengthCriteria = password.length >= 12;
+            const numberCriteria = /[0-9]/.test(password);
+            const specialCharacterCriteria = /[!@#$%^&*(),.?":{}<>|]/.test(password);
+            const uppercaseCriteria = /[A-Z]/.test(password);
+            const lowercaseCriteria = /[a-z]/.test(password);
+            
+            // Calculate score
+            if (lengthCriteria) score++;
+            if (uppercaseCriteria) score++;
+            if (numberCriteria) score++;
+            if (specialCharacterCriteria) score++;
+            if (lowercaseCriteria) score++;
+            
+            // Determine strength based on score
+            if (score >= 5) {
+                strength = 'Strong';
+            } else if (score >= 3) {
+                strength = 'Medium';
+            } else {
+                strength = 'Weak';
+            }
+            
+            resultDiv.className = strength.toLowerCase();
+            resultDiv.innerText = 'Password Strength: ' + strength + ' (Score: ' + score + '/5)';
+        }
+    </script>
+</body>
+</html>
